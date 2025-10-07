@@ -26,7 +26,7 @@ def signup(request):
             
     return render(request, 'signup.html', {'form':form})
 
-def login(request):
+def login_view(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -42,7 +42,7 @@ def login(request):
             messages.error(request, 'Invalid username or password')
     else:
         form = LoginForm()
-        context = {'form':form}
+    context = {'form':form}
     return render(request, 'login.html', context)
                 
         
