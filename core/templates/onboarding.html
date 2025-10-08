@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Onboarding - Timely</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #3a86ff;
+            --primary-dark: #2667cc;
+            --primary-light: #e6f0ff;
+            --secondary: #8338ec;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --success: #28a745;
+            --error: #dc3545;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            color: var(--dark);
+            background: linear-gradient(135deg, #f5f7ff 0%, #e6eeff 100%);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            padding: 20px 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 0;
+        }
+
+        .onboarding-container {
+            display: flex;
+            width: 100%;
+            max-width: 1100px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .onboarding-form {
+            flex: 1;
+            padding: 60px 50px;
+        }
+
+        .onboarding-image {
+            flex: 1;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 50px;
+            color: white;
+            text-align: center;
+        }
+
+        .onboarding-image img {
+            max-width: 100%;
+            margin-bottom: 30px;
+            border-radius: 10px;
+        }
+
+        .onboarding-image h2 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .onboarding-image p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .form-header h1 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .form-header p {
+            color: var(--gray);
+            font-size: 1.2rem;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 1.1rem;
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-with-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 2px solid var(--light-gray);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.2);
+        }
+
+        textarea.form-input {
+            min-height: 120px;
+            resize: vertical;
+            padding-left: 15px;
+        }
+
+        .select-input {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 2px solid var(--light-gray);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: white;
+            cursor: pointer;
+        }
+
+        .select-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.2);
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .messages {
+            margin-bottom: 20px;
+        }
+
+        .alert {
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(40, 167, 69, 0.3);
+        }
+
+        .alert-error {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: var(--error);
+            border: 1px solid rgba(220, 53, 69, 0.3);
+        }
+
+        .error-text {
+            color: var(--error);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .errorlist {
+            list-style: none;
+            padding: 0;
+            margin: 5px 0 0 0;
+        }
+
+        .errorlist li {
+            color: var(--error);
+            font-size: 0.9rem;
+        }
+
+        .business-type-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .business-type-option {
+            position: relative;
+        }
+
+        .business-type-option input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .business-type-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 15px;
+            border: 2px solid var(--light-gray);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            background: white;
+        }
+
+        .business-type-label:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .business-type-option input:checked + .business-type-label {
+            border-color: var(--primary);
+            background-color: var(--primary-light);
+            box-shadow: 0 0 0 2px rgba(58, 134, 255, 0.2);
+        }
+
+        .business-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .business-type-name {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 30px 0 20px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-logo i {
+            margin-right: 10px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--light-gray);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .onboarding-container {
+                flex-direction: column;
+            }
+            
+            .onboarding-image {
+                order: -1;
+                padding: 30px;
+            }
+            
+            .onboarding-form {
+                padding: 30px;
+            }
+            
+            .form-header h1 {
+                font-size: 2rem;
+            }
+            
+            .business-type-options {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                gap: 20px;
+            }
+            
+            nav ul li {
+                margin-left: 0;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="{% url 'home' %}" class="logo">
+                <i class="far fa-clock"></i>
+                Timely
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <div class="onboarding-container">
+                <div class="onboarding-form">
+                    <div class="form-header">
+                        <h1>Onboard Your Business</h1>
+                        <p>Join Timely and start accepting bookings from your customers</p>
+                    </div>
+
+                    <!-- Django Messages -->
+                    {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <!-- Django Form -->
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <!-- Business Name Field -->
+                        <div class="form-group">
+                            <label for="id_name">Business Name</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-store"></i>
+                                <input type="text" name="name" id="id_name" class="form-input" placeholder="Enter your business name" required>
+                            </div>
+                            {% if form.name.errors %}
+                            <div class="error-text">
+                                {{ form.name.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Business Type Field -->
+                        <div class="form-group">
+                            <label>Business Type</label>
+                            <div class="business-type-options">
+                                <div class="business-type-option">
+                                    <input type="radio" id="car_wash" name="business_type" value="car_wash" checked>
+                                    <label for="car_wash" class="business-type-label">
+                                        <i class="fas fa-car business-icon"></i>
+                                        <span class="business-type-name">Car Wash</span>
+                                    </label>
+                                </div>
+                                <div class="business-type-option">
+                                    <input type="radio" id="barber" name="business_type" value="barber">
+                                    <label for="barber" class="business-type-label">
+                                        <i class="fas fa-cut business-icon"></i>
+                                        <span class="business-type-name">Barber Shop</span>
+                                    </label>
+                                </div>
+                                <div class="business-type-option">
+                                    <input type="radio" id="spa_salon" name="business_type" value="spa_salon">
+                                    <label for="spa_salon" class="business-type-label">
+                                        <i class="fas fa-spa business-icon"></i>
+                                        <span class="business-type-name">Spa & Salon</span>
+                                    </label>
+                                </div>
+                                <div class="business-type-option">
+                                    <input type="radio" id="gym" name="business_type" value="gym">
+                                    <label for="gym" class="business-type-label">
+                                        <i class="fas fa-dumbbell business-icon"></i>
+                                        <span class="business-type-name">Gym & Fitness</span>
+                                    </label>
+                                </div>
+                            </div>
+                            {% if form.business_type.errors %}
+                            <div class="error-text">
+                                {{ form.business_type.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Email Field -->
+                        <div class="form-group">
+                            <label for="id_email">Business Email</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" name="email" id="id_email" class="form-input" placeholder="Enter your business email" required>
+                            </div>
+                            {% if form.email.errors %}
+                            <div class="error-text">
+                                {{ form.email.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Phone Field -->
+                        <div class="form-group">
+                            <label for="id_phone">Phone Number</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-phone"></i>
+                                <input type="text" name="phone" id="id_phone" class="form-input" placeholder="Enter your business phone number" required>
+                            </div>
+                            {% if form.phone.errors %}
+                            <div class="error-text">
+                                {{ form.phone.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Address Field -->
+                        <div class="form-group">
+                            <label for="id_address">Business Address</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <input type="text" name="address" id="id_address" class="form-input" placeholder="Enter your business address" required>
+                            </div>
+                            {% if form.address.errors %}
+                            <div class="error-text">
+                                {{ form.address.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Description Field -->
+                        <div class="form-group">
+                            <label for="id_description">Business Description</label>
+                            <textarea name="description" id="id_description" class="form-input" placeholder="Describe your business and services" required></textarea>
+                            {% if form.description.errors %}
+                            <div class="error-text">
+                                {{ form.description.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <button type="submit" class="btn">Register Your Business</button>
+                    </form>
+                </div>
+
+                <div class="onboarding-image">
+                    <img src="https://images.unsplash.com/photo-1563013541-666ab0851f0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Business Onboarding">
+                    <h2>Grow Your Business with Timely</h2>
+                    <p>Set up your booking system in minutes and start accepting appointments from customers 24/7.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="far fa-clock"></i>
+                    Timely
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Timely. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Add focus effects to form inputs
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('.form-input');
+            
+            inputs.forEach(input => {
+                // Add focus effect
+                input.addEventListener('focus', function() {
+                    if (this.parentElement.querySelector('i')) {
+                        this.parentElement.querySelector('i').style.color = 'var(--primary)';
+                    }
+                    this.style.borderColor = 'var(--primary)';
+                    this.style.backgroundColor = 'var(--primary-light)';
+                });
+                
+                // Remove focus effect
+                input.addEventListener('blur', function() {
+                    if (this.parentElement.querySelector('i')) {
+                        this.parentElement.querySelector('i').style.color = 'var(--gray)';
+                    }
+                    this.style.borderColor = 'var(--light-gray)';
+                    this.style.backgroundColor = 'white';
+                });
+            });
+
+            // Add click effects to business type options
+            const businessTypeOptions = document.querySelectorAll('.business-type-option input');
+            businessTypeOptions.forEach(option => {
+                option.addEventListener('change', function() {
+                    // Remove any existing active states
+                    document.querySelectorAll('.business-type-label').forEach(label => {
+                        label.style.borderColor = 'var(--light-gray)';
+                        label.style.backgroundColor = 'white';
+                    });
+                    
+                    // Add active state to selected option
+                    if (this.checked) {
+                        const label = this.nextElementSibling;
+                        label.style.borderColor = 'var(--primary)';
+                        label.style.backgroundColor = 'var(--primary-light)';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

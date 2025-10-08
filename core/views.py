@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import SignupForm, LoginForm
+from .forms import SignupForm, LoginForm, BusinessIforForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -37,7 +37,7 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, 'You have logged in successfully')
-                return redirect('home')
+                return redirect('onboarding')
         else:
             messages.error(request, 'Invalid username or password')
     else:
@@ -45,4 +45,18 @@ def login_view(request):
     context = {'form':form}
     return render(request, 'login.html', context)
                 
-        
+    
+def business_onboarding(request):
+    if request.method == 'POST':
+        form = BusinessIforForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "You have successfuly registered your Business to Timely")
+            return redirect('login')
+        else:
+            messages.error(request, "There was an error while trying  to onaboard you business")
+    else:
+        form = BusinessIforForm()
+    context = {'form':form}
+    
+    return render(request, 'onboarding.html', context)
