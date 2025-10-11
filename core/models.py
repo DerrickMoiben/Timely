@@ -21,3 +21,13 @@ class BusinessInfo(models.Model):
         return self.name
     
     
+class CarwashSetup(models.Model):
+    business = models.OneToOneField(BusinessInfo, on_delete=models.CASCADE, related_name='carwash_setup')
+    services_offered =  models.TextField(help_text="List the services offered (e.g, body wash, interior cleaning, engine wash )")
+    opening_time =  models.TimeField()
+    closing_time = models.TimeField()
+    location = models.CharField(max_length=255)
+    pricing_details = models.TextField(help_text="Provide pricing details for different services")
+    
+    def __str__(self):
+        return f"Carwash Setup for {self.business.name}"

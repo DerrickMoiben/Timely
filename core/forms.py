@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from .models import BusinessInfo
+from .models import BusinessInfo, CarwashSetup
 
 class SignupForm(UserCreationForm):
     class Meta:
@@ -18,3 +18,8 @@ class BusinessIforForm(forms.ModelForm):
     class Meta:
         model = BusinessInfo
         fields =  '__all__'
+        
+class CarWashSetupForm(forms.ModelForm):
+    class Meta:
+        models =  CarwashSetup
+        fields = '__all__'

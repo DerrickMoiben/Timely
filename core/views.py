@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import SignupForm, LoginForm, BusinessIforForm
+from .forms import SignupForm, LoginForm, BusinessIforForm, CarWashSetupForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -60,3 +60,19 @@ def business_onboarding(request):
     context = {'form':form}
     
     return render(request, 'onboarding.html', context)
+
+def carsetup(request):
+    if request.method == 'POST':
+        form = CarWashSetupForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "You have successfully Setup you carwash Business with timely")
+            return redirect("home")
+        else:
+            messages.error(request, "There was an error while trying to onboard you business")
+    else:
+        form = CarWashSetupForm()
+        context = {'form':form}
+    
+    return render(request, carsetup.html, context)
+            
