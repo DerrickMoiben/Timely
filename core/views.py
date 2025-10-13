@@ -3,6 +3,7 @@ from .forms import SignupForm, LoginForm, BusinessIforForm, CarWashSetupForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from .models import BusinessInfo
 
 
 # Create your views here.
@@ -50,9 +51,19 @@ def business_onboarding(request):
     if request.method == 'POST':
         form = BusinessIforForm(request.POST)
         if form.is_valid():
-            form.save()
+            business = form.save()
             messages.success(request, "You have successfuly registered your Business to Timely")
-            return redirect('login')
+            """This is a dictonary mapping business tyoes to ther e setup route names for redirection"""
+            setup_redirects = {
+                'car_wash': 'carwashsetup',
+                
+            }
+            redirect_url =  setup_redirects.get(business.business_type)
+            if redirect_url:
+                return redirect(redirect_url, business_id=business.id)
+            else:
+                messages.warning(request, "Unknown business tyoe please contact Cutomer car via 0721170527")
+                return redirect('onboarding')
         else:
             messages.error(request, "There was an error while trying  to onaboard you business")
     else:
@@ -61,18 +72,21 @@ def business_onboarding(request):
     
     return render(request, 'onboarding.html', context)
 
-def carsetup(request):
+def carwashsetup(request, business_id):
+    business =  BusinessInfo.objects.get(id=business_id)
     if request.method == 'POST':
         form = CarWashSetupForm(request.POST)
         if form.is_valid():
-            form.save()
+            carwash = form.save(commit=False)
+            carwash.business = business
+            carwash.save()
             messages.success(request, "You have successfully Setup you carwash Business with timely")
             return redirect("home")
         else:
             messages.error(request, "There was an error while trying to onboard you business")
     else:
         form = CarWashSetupForm()
-        context = {'form':form}
+    context = {'form':form}
     
-    return render(request, carsetup.html, context)
+    return render(request, 'carwashsetup.html', context)
             

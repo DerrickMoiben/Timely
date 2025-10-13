@@ -21,5 +21,5 @@ class BusinessIforForm(forms.ModelForm):
         
 class CarWashSetupForm(forms.ModelForm):
     class Meta:
-        models =  CarwashSetup
-        fields = '__all__'
+        model =  CarwashSetup
+        exclude = ['business']
