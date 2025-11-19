@@ -31,3 +31,16 @@ class CarwashSetup(models.Model):
     
     def __str__(self):
         return f"Carwash Setup for {self.business.name}"
+    
+    
+class BusinessWebsite(models.Model):
+    business =  models.OneToOneField(BusinessInfo, on_delete=models.CASCADE, related_name='website')
+    theme_color =  models.CharField(max_length=20, default='#28a745')
+    about = models.TextField(blank=True)
+    services = models.TextField(blank=True)
+    contact_email = models.EmailField(blank=True)
+    contact_phone = models.CharField(max_length=20, blank=True)
+    address = models.CharField(max_length=255, blank=True)
+    
+    def __str__(self):
+        return f"Website for {self.business.name}"

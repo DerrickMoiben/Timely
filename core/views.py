@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
-from .forms import SignupForm, LoginForm, BusinessIforForm, CarWashSetupForm
+from .forms import SignupForm, LoginForm, BusinessIforForm, CarWashSetupForm, BusinessWebsiteForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from .models import BusinessInfo
+from .models import BusinessInfo, BusinessWebsite
 
 
 # Create your views here.
@@ -62,7 +62,7 @@ def business_onboarding(request):
             if redirect_url:
                 return redirect(redirect_url, business_id=business.id)
             else:
-                messages.warning(request, "Unknown business tyoe please contact Cutomer car via 0721170527")
+                messages.warning(request, "Unknown business type please contact Cutomer car via 0721170527")
                 return redirect('onboarding')
         else:
             messages.error(request, "There was an error while trying  to onaboard you business")
@@ -81,7 +81,7 @@ def carwashsetup(request, business_id):
             carwash.business = business
             carwash.save()
             messages.success(request, "You have successfully Setup you carwash Business with timely")
-            return redirect("home")
+            return redirect("businesswebsite", business_id=business.id)
         else:
             messages.error(request, "There was an error while trying to onboard you business")
     else:
@@ -89,4 +89,26 @@ def carwashsetup(request, business_id):
     context = {'form':form}
     
     return render(request, 'carwashsetup.html', context)
-            
+
+def businesswebsite(request, business_id):
+    try:
+        business = BusinessInfo.objects.get(id=business_id)
+    except BusinessInfo.DoesNotExist:
+        messages.error(request, "Business not Found")
+        return redirect('onboarding')
+    
+    if request.method == 'POST':
+        form =  BusinessWebsiteForm(request.POST)
+        if form.is_valid():
+            website =  form.save(commit=False)
+            website.business = business
+            website.save()
+            messages.success(request, "You're website is up and running ")
+            return redirect('home')
+        else:
+            messages.error(request, "There was an error while trying to deploy you website")
+    else:
+        form = BusinessWebsiteForm()
+    context = {'form':form}
+    
+    return render(request, 'business_website.html', context)            

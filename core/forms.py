@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from .models import BusinessInfo, CarwashSetup
+from .models import BusinessInfo, CarwashSetup, BusinessWebsite
 
 class SignupForm(UserCreationForm):
     class Meta:
@@ -22,4 +22,9 @@ class BusinessIforForm(forms.ModelForm):
 class CarWashSetupForm(forms.ModelForm):
     class Meta:
         model =  CarwashSetup
+        exclude = ['business']
+        
+class BusinessWebsiteForm(forms.ModelForm):
+    class Meta:
+        model = BusinessWebsite
         exclude = ['business']
