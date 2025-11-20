@@ -111,4 +111,15 @@ def businesswebsite(request, business_id):
         form = BusinessWebsiteForm()
     context = {'form':form}
     
-    return render(request, 'business_website.html', context)            
+    return render(request, 'business_website.html', context) 
+
+def display_site(request, business_id):
+    business =  BusinessInfo.objects.get(id=business_id)
+    website = business.website
+    
+    context = {
+        'business':business,
+        'website':website
+    }
+    return render(request, 'website.html', context)
+    

@@ -9,4 +9,5 @@ urlpatterns = [
     path('onboarding/', views.business_onboarding, name='onboarding'),
     path('carwashsetup/<int:business_id>/', views.carwashsetup, name='carwashsetup'),
     path('businesswebsite/<int:business_id>/', views.businesswebsite, name='businesswebsite'),
+    path('site/<int:business_id>/', views.display_site, name='site'),
 ]
