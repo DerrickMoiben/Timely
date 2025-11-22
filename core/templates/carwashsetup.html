@@ -519,76 +519,7 @@
                     <!-- Django Form -->
                     <form method="post">
                         {% csrf_token %}
-                        
-                        <!-- Services Offered Field -->
-                        <div class="form-group">
-                            <label for="id_services_offered">Services Offered</label>
-                            <textarea name="services_offered" id="id_services_offered" class="form-input" placeholder="List the services you offer (e.g., body wash, interior cleaning, engine wash, waxing, detailing)" required></textarea>
-                            <div class="help-text">List the services offered (e.g., body wash, interior cleaning, engine wash)</div>
-                            {% if form.services_offered.errors %}
-                            <div class="error-text">
-                                {{ form.services_offered.errors }}
-                            </div>
-                            {% endif %}
-                        </div>
-
-                        <!-- Business Hours -->
-                        <div class="form-group">
-                            <label>Business Hours</label>
-                            <div class="time-inputs">
-                                <div>
-                                    <label for="id_opening_time">Opening Time</label>
-                                    <div class="input-with-icon">
-                                        <i class="fas fa-door-open"></i>
-                                        <input type="time" name="opening_time" id="id_opening_time" class="form-input" required>
-                                    </div>
-                                    {% if form.opening_time.errors %}
-                                    <div class="error-text">
-                                        {{ form.opening_time.errors }}
-                                    </div>
-                                    {% endif %}
-                                </div>
-                                <div>
-                                    <label for="id_closing_time">Closing Time</label>
-                                    <div class="input-with-icon">
-                                        <i class="fas fa-door-closed"></i>
-                                        <input type="time" name="closing_time" id="id_closing_time" class="form-input" required>
-                                    </div>
-                                    {% if form.closing_time.errors %}
-                                    <div class="error-text">
-                                        {{ form.closing_time.errors }}
-                                    </div>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Location Field -->
-                        <div class="form-group">
-                            <label for="id_location">Location</label>
-                            <div class="input-with-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <input type="text" name="location" id="id_location" class="form-input" placeholder="Enter your car wash location" required>
-                            </div>
-                            {% if form.location.errors %}
-                            <div class="error-text">
-                                {{ form.location.errors }}
-                            </div>
-                            {% endif %}
-                        </div>
-
-                        <!-- Pricing Details Field -->
-                        <div class="form-group">
-                            <label for="id_pricing_details">Pricing Details</label>
-                            <textarea name="pricing_details" id="id_pricing_details" class="form-input" placeholder="Provide pricing details for different services (e.g., Basic Wash: $15, Premium Wash: $30, Interior Detailing: $50)" required></textarea>
-                            <div class="help-text">Provide pricing details for different services</div>
-                            {% if form.pricing_details.errors %}
-                            <div class="error-text">
-                                {{ form.pricing_details.errors }}
-                            </div>
-                            {% endif %}
-                        </div>
-
+                      
                         <button type="submit" class="btn">Complete Car Wash Setup</button>
                     </form>
                 </div>

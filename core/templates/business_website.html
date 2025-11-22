@@ -216,23 +216,84 @@
                     </div>
                 </div>
 
-                <!-- Website Information Section -->
+                <!-- Website Content Section -->
                 <div class="bg-gray-50 rounded-xl p-6">
                     <div class="flex items-center mb-6">
-                        <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center mr-3">
-                            <i class="fas fa-info-circle text-white text-lg"></i>
+                        <div class="w-10 h-10 bg-purple-500 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-file-alt text-white text-lg"></i>
                         </div>
                         <div>
-                            <h2 class="text-2xl font-bold text-gray-800">Website Information</h2>
-                            <p class="text-gray-600">Fill in your business details for your website</p>
+                            <h2 class="text-2xl font-bold text-gray-800">Website Content</h2>
+                            <p class="text-gray-600">Customize the main content of your website</p>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-6">
+                        <!-- Hero Title -->
+                        <div>
+                            <label for="{{ form.hero_title.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                                <i class="fas fa-heading mr-2 text-blue-500"></i>
+                                Hero Title
+                            </label>
+                            <input 
+                                type="text" 
+                                name="{{ form.hero_title.name }}" 
+                                id="{{ form.hero_title.id_for_label }}" 
+                                value="{{ form.hero_title.value|default:'' }}"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                placeholder="Welcome to Our Amazing Business"
+                            >
+                            <p class="text-xs text-gray-500 mt-1">Main headline on your homepage</p>
+                            {% if form.hero_title.errors %}
+                                <div class="text-red-600 text-sm mt-1">
+                                    {{ form.hero_title.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Hero Subtitle -->
+                        <div>
+                            <label for="{{ form.hero_subtitle.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                                <i class="fas fa-subscript mr-2 text-blue-500"></i>
+                                Hero Subtitle
+                            </label>
+                            <textarea 
+                                name="{{ form.hero_subtitle.name }}" 
+                                id="{{ form.hero_subtitle.id_for_label }}" 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input focus:ring-2 focus:ring-blue-500 focus:border-transparent h-24 resize-vertical"
+                                placeholder="Brief description of what makes your business special..."
+                            >{{ form.hero_subtitle.value|default:'' }}</textarea>
+                            <p class="text-xs text-gray-500 mt-1">Subtitle below the main headline</p>
+                            {% if form.hero_subtitle.errors %}
+                                <div class="text-red-600 text-sm mt-1">
+                                    {{ form.hero_subtitle.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Welcome Message -->
+                        <div>
+                            <label for="{{ form.welcome_message.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                                <i class="fas fa-comment mr-2 text-blue-500"></i>
+                                Welcome Message
+                            </label>
+                            <textarea 
+                                name="{{ form.welcome_message.name }}" 
+                                id="{{ form.welcome_message.id_for_label }}" 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input focus:ring-2 focus:ring-blue-500 focus:border-transparent h-24 resize-vertical"
+                                placeholder="A warm welcome message for your customers..."
+                            >{{ form.welcome_message.value|default:'' }}</textarea>
+                            {% if form.welcome_message.errors %}
+                                <div class="text-red-600 text-sm mt-1">
+                                    {{ form.welcome_message.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
                         <!-- About Section -->
-                        <div class="md:col-span-2">
+                        <div>
                             <label for="{{ form.about.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
-                                <i class="fas fa-file-alt mr-2 text-blue-500"></i>
+                                <i class="fas fa-info-circle mr-2 text-blue-500"></i>
                                 About Your Business
                             </label>
                             <textarea 
@@ -250,18 +311,33 @@
                                 </div>
                             {% endif %}
                         </div>
+                    </div>
+                </div>
 
+                <!-- Services & Pricing Section -->
+                <div class="bg-gray-50 rounded-xl p-6">
+                    <div class="flex items-center mb-6">
+                        <div class="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-concierge-bell text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-800">Services & Pricing</h2>
+                            <p class="text-gray-600">List your services and pricing information</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
                         <!-- Services Section -->
-                        <div class="md:col-span-2">
+                        <div>
                             <label for="{{ form.services.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
-                                <i class="fas fa-concierge-bell mr-2 text-blue-500"></i>
+                                <i class="fas fa-list mr-2 text-blue-500"></i>
                                 Services Offered
                             </label>
                             <textarea 
                                 name="{{ form.services.name }}" 
                                 id="{{ form.services.id_for_label }}" 
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input focus:ring-2 focus:ring-blue-500 focus:border-transparent h-32 resize-vertical"
-                                placeholder="List your services, one per line. Example:&#10;Haircut and Styling&#10;Beard Trimming&#10;Hot Towel Shave"
+                                placeholder="List your services, one per line. Example:&#10;Basic Car Wash - $15&#10;Premium Detailing - $50&#10;Interior Cleaning - $25"
                             >{{ form.services.value|default:'' }}</textarea>
                             {% if form.services.help_text %}
                                 <p class="text-sm text-gray-500 mt-1">{{ form.services.help_text }}</p>
@@ -273,7 +349,44 @@
                             {% endif %}
                         </div>
 
-                        <!-- Contact Information -->
+                        <!-- Pricing Details -->
+                        <div>
+                            <label for="{{ form.pricing_details.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                                <i class="fas fa-tag mr-2 text-blue-500"></i>
+                                Pricing Details
+                            </label>
+                            <textarea 
+                                name="{{ form.pricing_details.name }}" 
+                                id="{{ form.pricing_details.id_for_label }}" 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input focus:ring-2 focus:ring-blue-500 focus:border-transparent h-24 resize-vertical"
+                                placeholder="Provide detailed pricing information:&#10;Basic Wash: $15&#10;Premium Wash: $30&#10;Full Detail: $75"
+                            >{{ form.pricing_details.value|default:'' }}</textarea>
+                            {% if form.pricing_details.help_text %}
+                                <p class="text-sm text-gray-500 mt-1">{{ form.pricing_details.help_text }}</p>
+                            {% endif %}
+                            {% if form.pricing_details.errors %}
+                                <div class="text-red-600 text-sm mt-1">
+                                    {{ form.pricing_details.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact & Business Information -->
+                <div class="bg-gray-50 rounded-xl p-6">
+                    <div class="flex items-center mb-6">
+                        <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-address-book text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-800">Contact & Business Information</h2>
+                            <p class="text-gray-600">Your business contact details and operating hours</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Contact Email -->
                         <div>
                             <label for="{{ form.contact_email.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
                                 <i class="fas fa-envelope mr-2 text-blue-500"></i>
@@ -294,6 +407,7 @@
                             {% endif %}
                         </div>
 
+                        <!-- Contact Phone -->
                         <div>
                             <label for="{{ form.contact_phone.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
                                 <i class="fas fa-phone mr-2 text-blue-500"></i>
@@ -315,7 +429,7 @@
                         </div>
 
                         <!-- Address -->
-                        <div class="md:col-span-2">
+                        <div>
                             <label for="{{ form.address.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
                                 <i class="fas fa-map-marker-alt mr-2 text-blue-500"></i>
                                 Business Address
@@ -333,6 +447,167 @@
                                     {{ form.address.errors }}
                                 </div>
                             {% endif %}
+                        </div>
+
+                        <!-- Location -->
+                        <div>
+                            <label for="{{ form.location.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                                <i class="fas fa-location-dot mr-2 text-blue-500"></i>
+                                City/Location
+                            </label>
+                            <input 
+                                type="text" 
+                                name="{{ form.location.name }}" 
+                                id="{{ form.location.id_for_label }}" 
+                                value="{{ form.location.value|default:'' }}"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                placeholder="Nairobi, New York, London"
+                            >
+                            {% if form.location.errors %}
+                                <div class="text-red-600 text-sm mt-1">
+                                    {{ form.location.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Opening Time -->
+                        <div>
+                            <label for="{{ form.opening_time.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                                <i class="fas fa-door-open mr-2 text-blue-500"></i>
+                                Opening Time
+                            </label>
+                            <input 
+                                type="time" 
+                                name="{{ form.opening_time.name }}" 
+                                id="{{ form.opening_time.id_for_label }}" 
+                                value="{{ form.opening_time.value|default:'08:00' }}"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            >
+                            {% if form.opening_time.errors %}
+                                <div class="text-red-600 text-sm mt-1">
+                                    {{ form.opening_time.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Closing Time -->
+                        <div>
+                            <label for="{{ form.closing_time.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                                <i class="fas fa-door-closed mr-2 text-blue-500"></i>
+                                Closing Time
+                            </label>
+                            <input 
+                                type="time" 
+                                name="{{ form.closing_time.name }}" 
+                                id="{{ form.closing_time.id_for_label }}" 
+                                value="{{ form.closing_time.value|default:'18:00' }}"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            >
+                            {% if form.closing_time.errors %}
+                                <div class="text-red-600 text-sm mt-1">
+                                    {{ form.closing_time.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Social Media & SEO Section -->
+                <div class="bg-gray-50 rounded-xl p-6">
+                    <div class="flex items-center mb-6">
+                        <div class="w-10 h-10 bg-pink-500 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-share-alt text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-800">Social Media & SEO</h2>
+                            <p class="text-gray-600">Connect your social media and optimize for search engines</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Social Media Links -->
+                        <div class="space-y-4">
+                            <h3 class="text-lg font-semibold text-gray-700 mb-3">Social Media Links</h3>
+                            
+                            <div>
+                                <label for="{{ form.facebook_url.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                    <i class="fab fa-facebook mr-2 text-blue-600"></i>
+                                    Facebook URL
+                                </label>
+                                <input 
+                                    type="url" 
+                                    name="{{ form.facebook_url.name }}" 
+                                    id="{{ form.facebook_url.id_for_label }}" 
+                                    value="{{ form.facebook_url.value|default:'' }}"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    placeholder="https://facebook.com/yourbusiness"
+                                >
+                            </div>
+
+                            <div>
+                                <label for="{{ form.instagram_url.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                    <i class="fab fa-instagram mr-2 text-pink-600"></i>
+                                    Instagram URL
+                                </label>
+                                <input 
+                                    type="url" 
+                                    name="{{ form.instagram_url.name }}" 
+                                    id="{{ form.instagram_url.id_for_label }}" 
+                                    value="{{ form.instagram_url.value|default:'' }}"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    placeholder="https://instagram.com/yourbusiness"
+                                >
+                            </div>
+
+                            <div>
+                                <label for="{{ form.twitter_url.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                    <i class="fab fa-twitter mr-2 text-blue-400"></i>
+                                    Twitter URL
+                                </label>
+                                <input 
+                                    type="url" 
+                                    name="{{ form.twitter_url.name }}" 
+                                    id="{{ form.twitter_url.id_for_label }}" 
+                                    value="{{ form.twitter_url.value|default:'' }}"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    placeholder="https://twitter.com/yourbusiness"
+                                >
+                            </div>
+                        </div>
+
+                        <!-- SEO Settings -->
+                        <div class="space-y-4">
+                            <h3 class="text-lg font-semibold text-gray-700 mb-3">SEO Settings</h3>
+                            
+                            <div>
+                                <label for="{{ form.meta_title.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                    <i class="fas fa-search mr-2 text-blue-500"></i>
+                                    Page Title
+                                </label>
+                                <input 
+                                    type="text" 
+                                    name="{{ form.meta_title.name }}" 
+                                    id="{{ form.meta_title.id_for_label }}" 
+                                    value="{{ form.meta_title.value|default:'' }}"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    placeholder="{{ business.name }} - Professional Services"
+                                >
+                                <p class="text-xs text-gray-500 mt-1">Appears in browser tabs and search results</p>
+                            </div>
+
+                            <div>
+                                <label for="{{ form.meta_description.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                    <i class="fas fa-align-left mr-2 text-blue-500"></i>
+                                    Meta Description
+                                </label>
+                                <textarea 
+                                    name="{{ form.meta_description.name }}" 
+                                    id="{{ form.meta_description.id_for_label }}" 
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input focus:ring-2 focus:ring-blue-500 focus:border-transparent h-20 resize-vertical"
+                                    placeholder="Brief description of your business for search engines..."
+                                >{{ form.meta_description.value|default:'' }}</textarea>
+                                <p class="text-xs text-gray-500 mt-1">Brief description for search engines (150-160 characters)</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -412,6 +687,26 @@
             }
         });
 
+        // Auto-generate meta title if empty
+        const metaTitle = document.getElementById('{{ form.meta_title.id_for_label }}');
+        const heroTitle = document.getElementById('{{ form.hero_title.id_for_label }}');
+        
+        heroTitle.addEventListener('blur', function() {
+            if (!metaTitle.value && this.value) {
+                metaTitle.value = this.value + ' - Professional Services';
+            }
+        });
+
+        // Auto-generate meta description if empty
+        const metaDescription = document.getElementById('{{ form.meta_description.id_for_label }}');
+        const heroSubtitle = document.getElementById('{{ form.hero_subtitle.id_for_label }}');
+        
+        heroSubtitle.addEventListener('blur', function() {
+            if (!metaDescription.value && this.value) {
+                metaDescription.value = this.value.substring(0, 155) + '...';
+            }
+        });
+
         // Form validation
         document.querySelector('form').addEventListener('submit', function(e) {
             let valid = true;
@@ -431,6 +726,3 @@
                 alert('Please fill in all required fields.');
             }
         });
-    </script>
-</body>
-</html>

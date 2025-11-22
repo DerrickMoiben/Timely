@@ -3,8 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ business.name }} - Professional Services</title>
+    <title>{{ website.meta_title|default:business.name }} - Professional Services</title>
 
+    <!-- Meta tags for SEO -->
+    {% if website.meta_description %}
+    <meta name="description" content="{{ website.meta_description }}">
+    {% endif %}
+    
     <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -116,10 +121,10 @@
         <div class="container mx-auto px-6 py-20 md:py-32">
             <div class="max-w-3xl mx-auto text-center">
                 <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-                    Welcome to {{ business.name }}
+                    {{ website.hero_title|default:"Welcome to "|add:business.name }}
                 </h1>
                 <p class="text-lg md:text-xl mb-8 text-white leading-relaxed opacity-90">
-                    {{ business.description }}
+                    {{ website.hero_subtitle|default:business.description }}
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <a href="#booking" class="bg-white text-gray-900 font-semibold px-8 py-4 rounded-lg shadow-lg text-lg hover:bg-gray-100 transition-colors">
@@ -132,6 +137,19 @@
             </div>
         </div>
     </section>
+
+    <!-- WELCOME MESSAGE SECTION -->
+    {% if website.welcome_message %}
+    <section class="bg-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="bg-theme-very-light rounded-2xl p-8 border-l-4 border-theme">
+                    <p class="text-lg text-gray-700 leading-relaxed">{{ website.welcome_message }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
 
     <!-- FEATURES SECTION -->
     <section class="bg-white py-16">
@@ -172,7 +190,7 @@
                 
                 <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12">
                     <div class="prose max-w-none text-gray-700 leading-relaxed">
-                        {{ website.about|linebreaks }}
+                        {{ website.about|default:business.description|linebreaks }}
                     </div>
                     
                     <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -222,10 +240,28 @@
         </div>
     </section>
 
-    <!-- BOOKING SECTION -->
-    <section id="booking" class="bg-theme-very-light py-16">
+    <!-- PRICING SECTION -->
+    {% if website.pricing_details %}
+    <section class="bg-theme-very-light py-16">
         <div class="container mx-auto px-6">
-            <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 text-gray-800">Pricing</h2>
+            <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
+                Transparent pricing for all our services
+            </p>
+
+            <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-8">
+                <div class="prose max-w-none text-gray-700">
+                    {{ website.pricing_details|linebreaks }}
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- BOOKING SECTION -->
+    <section id="booking" class="bg-white py-16">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200">
                 <div class="md:flex">
                     <div class="md:w-1/2 bg-theme p-8 text-white">
                         <h2 class="text-3xl font-bold mb-4">Ready to Book?</h2>
@@ -302,6 +338,9 @@
                             <div>
                                 <h4 class="font-semibold text-theme">Address</h4>
                                 <p class="text-gray-300">{{ website.address }}</p>
+                                {% if website.location %}
+                                <p class="text-gray-400 text-sm">{{ website.location }}</p>
+                                {% endif %}
                             </div>
                         </div>
                         
@@ -325,6 +364,30 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Social Media Links -->
+                    {% if website.facebook_url or website.instagram_url or website.twitter_url %}
+                    <div class="mt-8">
+                        <h4 class="font-semibold text-theme mb-4">Follow Us</h4>
+                        <div class="flex space-x-4">
+                            {% if website.facebook_url %}
+                            <a href="{{ website.facebook_url }}" class="text-gray-400 hover:text-theme transition-colors" target="_blank">
+                                <i class="fab fa-facebook-f text-xl"></i>
+                            </a>
+                            {% endif %}
+                            {% if website.instagram_url %}
+                            <a href="{{ website.instagram_url }}" class="text-gray-400 hover:text-theme transition-colors" target="_blank">
+                                <i class="fab fa-instagram text-xl"></i>
+                            </a>
+                            {% endif %}
+                            {% if website.twitter_url %}
+                            <a href="{{ website.twitter_url }}" class="text-gray-400 hover:text-theme transition-colors" target="_blank">
+                                <i class="fab fa-twitter text-xl"></i>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
                 
                 <div>
@@ -333,7 +396,9 @@
                         <div class="space-y-3">
                             <div class="flex justify-between">
                                 <span class="text-gray-300">Monday - Friday</span>
-                                <span class="text-white font-medium">9:00 AM - 6:00 PM</span>
+                                <span class="text-white font-medium">
+                                    {{ website.opening_time|time:"g:i A" }} - {{ website.closing_time|time:"g:i A" }}
+                                </span>
                             </div>
                             <div class="flex justify-between">
                                 <span class="text-gray-300">Saturday</span>
@@ -365,15 +430,21 @@
                 </div>
                 
                 <div class="flex space-x-6">
-                    <a href="#" class="text-gray-400 hover:text-theme transition-colors">
+                    {% if website.facebook_url %}
+                    <a href="{{ website.facebook_url }}" class="text-gray-400 hover:text-theme transition-colors" target="_blank">
                         <i class="fab fa-facebook-f text-xl"></i>
                     </a>
-                    <a href="#" class="text-gray-400 hover:text-theme transition-colors">
+                    {% endif %}
+                    {% if website.twitter_url %}
+                    <a href="{{ website.twitter_url }}" class="text-gray-400 hover:text-theme transition-colors" target="_blank">
                         <i class="fab fa-twitter text-xl"></i>
                     </a>
-                    <a href="#" class="text-gray-400 hover:text-theme transition-colors">
+                    {% endif %}
+                    {% if website.instagram_url %}
+                    <a href="{{ website.instagram_url }}" class="text-gray-400 hover:text-theme transition-colors" target="_blank">
                         <i class="fab fa-instagram text-xl"></i>
                     </a>
+                    {% endif %}
                 </div>
             </div>
             
@@ -405,6 +476,26 @@
                     document.getElementById('mobileMenu').classList.add('hidden');
                 }
             });
+        });
+
+        // Form validation
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const requiredFields = this.querySelectorAll('input[required], select[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.classList.add('border-red-500');
+                } else {
+                    field.classList.remove('border-red-500');
+                }
+            });
+            
+            if (!isValid) {
+                e.preventDefault();
+                alert('Please fill in all required fields.');
+            }
         });
     </script>
 </body>
