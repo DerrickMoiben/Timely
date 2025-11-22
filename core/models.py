@@ -10,9 +10,6 @@ class BusinessInfo(models.Model):
     ]
     name = models.CharField(max_length=100)
     description =  models.TextField()
-    email = models.EmailField()
-    phone = models.CharField(max_length=15)
-    address =  models.TextField()
     business_type =  models.CharField(max_length=50, choices=BUSINESS_TYPE_CHOICES, default='car_wash')
     created_at =  models.DateTimeField(auto_now_add=True)
     
@@ -23,11 +20,6 @@ class BusinessInfo(models.Model):
     
 class CarwashSetup(models.Model):
     business = models.OneToOneField(BusinessInfo, on_delete=models.CASCADE, related_name='carwash_setup')
-    services_offered =  models.TextField(help_text="List the services offered (e.g, body wash, interior cleaning, engine wash )")
-    opening_time =  models.TimeField()
-    closing_time = models.TimeField()
-    location = models.CharField(max_length=255)
-    pricing_details = models.TextField(help_text="Provide pricing details for different services")
     
     def __str__(self):
         return f"Carwash Setup for {self.business.name}"
@@ -38,9 +30,12 @@ class BusinessWebsite(models.Model):
     theme_color =  models.CharField(max_length=20, default='#28a745')
     about = models.TextField(blank=True)
     services = models.TextField(blank=True)
+    pricing_details = models.TextField(help_text="Provide pricing details for different services", default='10')
     contact_email = models.EmailField(blank=True)
     contact_phone = models.CharField(max_length=20, blank=True)
-    address = models.CharField(max_length=255, blank=True)
+    address = models.CharField(max_length=255, blank=True, default='13')
+    location = models.CharField(max_length=255,  default='nairobi')
+    closing_time = models.TimeField(default='10')
     
     def __str__(self):
         return f"Website for {self.business.name}"

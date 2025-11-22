@@ -1,15 +1,436 @@
-<h1>Kimtai Derrick</h1>
-<form action="" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">submit</button>
-    {% if messages %}
-        <div class="messages">
-        {% for message in messages %}
-         <div class="alert alert-{{ message.tags }}">
-            {{ message }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customize Your Website - {{ business.name }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .color-option input:checked + label > div {
+            border: 3px solid #3b82f6;
+            transform: scale(1.05);
+        }
+        .form-input {
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen py-8">
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">Design Your Website</h1>
+            <p class="text-lg text-gray-600">Customize your business website with your preferred colors and information</p>
         </div>
-    {% endfor %}
+
+        <div class="bg-white rounded-2xl shadow-xl p-8">
+            <form action="" method="post" class="space-y-8">
+                {% csrf_token %}
+                
+                <!-- Theme Color Selection Section -->
+                <div class="bg-gray-50 rounded-xl p-6">
+                    <div class="flex items-center mb-6">
+                        <div class="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-palette text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-800">Choose Your Brand Colors</h2>
+                            <p class="text-gray-600">Select a color palette that represents your business</p>
+                        </div>
+                    </div>
+
+                    <!-- Color Palettes Grid -->
+                    <div class="space-y-8">
+                        <!-- Blue Palette -->
+                        <div class="color-palette-group">
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4">Blue Palettes</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="color-option">
+                                    <input type="radio" name="theme_color" value="#3B82F6" id="blue-classic" class="hidden" {% if website.theme_color == "#3B82F6" %}checked{% endif %}>
+                                    <label for="blue-classic" class="block cursor-pointer">
+                                        <div class="w-full h-20 rounded-lg mb-2 border-2 border-gray-200 transition-all duration-300 flex overflow-hidden">
+                                            <div class="flex-1 bg-blue-500"></div>
+                                            <div class="flex-1 bg-blue-600"></div>
+                                            <div class="flex-1 bg-blue-400"></div>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-sm font-medium text-gray-700">Classic Blue</span>
+                                            <span class="text-xs text-gray-500">#3B82F6</span>
+                                        </div>
+                                    </label>
+                                </div>
+                                
+                                <div class="color-option">
+                                    <input type="radio" name="theme_color" value="#1D4ED8" id="blue-deep" class="hidden" {% if website.theme_color == "#1D4ED8" %}checked{% endif %}>
+                                    <label for="blue-deep" class="block cursor-pointer">
+                                        <div class="w-full h-20 rounded-lg mb-2 border-2 border-gray-200 transition-all duration-300 flex overflow-hidden">
+                                            <div class="flex-1 bg-blue-700"></div>
+                                            <div class="flex-1 bg-blue-800"></div>
+                                            <div class="flex-1 bg-blue-600"></div>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-sm font-medium text-gray-700">Deep Blue</span>
+                                            <span class="text-xs text-gray-500">#1D4ED8</span>
+                                        </div>
+                                    </label>
+                                </div>
+                                
+                                <div class="color-option">
+                                    <input type="radio" name="theme_color" value="#60A5FA" id="blue-light" class="hidden" {% if website.theme_color == "#60A5FA" %}checked{% endif %}>
+                                    <label for="blue-light" class="block cursor-pointer">
+                                        <div class="w-full h-20 rounded-lg mb-2 border-2 border-gray-200 transition-all duration-300 flex overflow-hidden">
+                                            <div class="flex-1 bg-blue-400"></div>
+                                            <div class="flex-1 bg-blue-300"></div>
+                                            <div class="flex-1 bg-blue-200"></div>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-sm font-medium text-gray-700">Light Blue</span>
+                                            <span class="text-xs text-gray-500">#60A5FA</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Green Palette -->
+                        <div class="color-palette-group">
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4">Green Palettes</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="color-option">
+                                    <input type="radio" name="theme_color" value="#10B981" id="green-emerald" class="hidden" {% if website.theme_color == "#10B981" %}checked{% endif %}>
+                                    <label for="green-emerald" class="block cursor-pointer">
+                                        <div class="w-full h-20 rounded-lg mb-2 border-2 border-gray-200 transition-all duration-300 flex overflow-hidden">
+                                            <div class="flex-1 bg-emerald-500"></div>
+                                            <div class="flex-1 bg-emerald-600"></div>
+                                            <div class="flex-1 bg-emerald-400"></div>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-sm font-medium text-gray-700">Emerald</span>
+                                            <span class="text-xs text-gray-500">#10B981</span>
+                                        </div>
+                                    </label>
+                                </div>
+                                
+                                <div class="color-option">
+                                    <input type="radio" name="theme_color" value="#059669" id="green-forest" class="hidden" {% if website.theme_color == "#059669" %}checked{% endif %}>
+                                    <label for="green-forest" class="block cursor-pointer">
+                                        <div class="w-full h-20 rounded-lg mb-2 border-2 border-gray-200 transition-all duration-300 flex overflow-hidden">
+                                            <div class="flex-1 bg-green-600"></div>
+                                            <div class="flex-1 bg-green-700"></div>
+                                            <div class="flex-1 bg-green-500"></div>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-sm font-medium text-gray-700">Forest Green</span>
+                                            <span class="text-xs text-gray-500">#059669</span>
+                                        </div>
+                                    </label>
+                                </div>
+                                
+                                <div class="color-option">
+                                    <input type="radio" name="theme_color" value="#34D399" id="green-mint" class="hidden" {% if website.theme_color == "#34D399" %}checked{% endif %}>
+                                    <label for="green-mint" class="block cursor-pointer">
+                                        <div class="w-full h-20 rounded-lg mb-2 border-2 border-gray-200 transition-all duration-300 flex overflow-hidden">
+                                            <div class="flex-1 bg-green-400"></div>
+                                            <div class="flex-1 bg-green-300"></div>
+                                            <div class="flex-1 bg-green-200"></div>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-sm font-medium text-gray-700">Mint Green</span>
+                                            <span class="text-xs text-gray-500">#34D399</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Other Colors -->
+                        <div class="color-palette-group">
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4">Other Colors</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="color-option">
+                                    <input type="radio" name="theme_color" value="#F59E0B" id="yellow-amber" class="hidden" {% if website.theme_color == "#F59E0B" %}checked{% endif %}>
+                                    <label for="yellow-amber" class="block cursor-pointer">
+                                        <div class="w-full h-20 rounded-lg mb-2 border-2 border-gray-200 transition-all duration-300 flex overflow-hidden">
+                                            <div class="flex-1 bg-amber-500"></div>
+                                            <div class="flex-1 bg-amber-600"></div>
+                                            <div class="flex-1 bg-amber-400"></div>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-sm font-medium text-gray-700">Amber</span>
+                                            <span class="text-xs text-gray-500">#F59E0B</span>
+                                        </div>
+                                    </label>
+                                </div>
+                                
+                                <div class="color-option">
+                                    <input type="radio" name="theme_color" value="#EF4444" id="red-scarlet" class="hidden" {% if website.theme_color == "#EF4444" %}checked{% endif %}>
+                                    <label for="red-scarlet" class="block cursor-pointer">
+                                        <div class="w-full h-20 rounded-lg mb-2 border-2 border-gray-200 transition-all duration-300 flex overflow-hidden">
+                                            <div class="flex-1 bg-red-500"></div>
+                                            <div class="flex-1 bg-red-600"></div>
+                                            <div class="flex-1 bg-red-400"></div>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-sm font-medium text-gray-700">Scarlet</span>
+                                            <span class="text-xs text-gray-500">#EF4444</span>
+                                        </div>
+                                    </label>
+                                </div>
+                                
+                                <div class="color-option">
+                                    <input type="radio" name="theme_color" value="#8B5CF6" id="purple-violet" class="hidden" {% if website.theme_color == "#8B5CF6" %}checked{% endif %}>
+                                    <label for="purple-violet" class="block cursor-pointer">
+                                        <div class="w-full h-20 rounded-lg mb-2 border-2 border-gray-200 transition-all duration-300 flex overflow-hidden">
+                                            <div class="flex-1 bg-purple-500"></div>
+                                            <div class="flex-1 bg-purple-600"></div>
+                                            <div class="flex-1 bg-purple-400"></div>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-sm font-medium text-gray-700">Violet</span>
+                                            <span class="text-xs text-gray-500">#8B5CF6</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Custom Color Picker -->
+                    <div class="mt-6 p-4 bg-white rounded-lg border border-gray-200">
+                        <label class="block text-sm font-semibold text-gray-700 mb-3">
+                            <i class="fas fa-eyedropper mr-2 text-blue-500"></i>
+                            Or choose a custom color:
+                        </label>
+                        <div class="flex items-center space-x-4">
+                            <input type="color" name="theme_color_custom" value="{{ website.theme_color }}" class="w-16 h-16 cursor-pointer rounded-lg border border-gray-300">
+                            <div class="flex-1">
+                                <input type="text" id="custom-color-value" value="{{ website.theme_color }}" class="w-full px-3 py-2 border border-gray-300 rounded-lg form-input" placeholder="#000000" pattern="^#[0-9A-Fa-f]{6}$">
+                                <p class="text-xs text-gray-500 mt-1">Enter a hex color code (e.g., #3B82F6)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Website Information Section -->
+                <div class="bg-gray-50 rounded-xl p-6">
+                    <div class="flex items-center mb-6">
+                        <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-info-circle text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-800">Website Information</h2>
+                            <p class="text-gray-600">Fill in your business details for your website</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- About Section -->
+                        <div class="md:col-span-2">
+                            <label for="{{ form.about.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                                <i class="fas fa-file-alt mr-2 text-blue-500"></i>
+                                About Your Business
+                            </label>
+                            <textarea 
+                                name="{{ form.about.name }}" 
+                                id="{{ form.about.id_for_label }}" 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input focus:ring-2 focus:ring-blue-500 focus:border-transparent h-32 resize-vertical"
+                                placeholder="Tell customers about your business, your mission, and what makes you special..."
+                            >{{ form.about.value|default:'' }}</textarea>
+                            {% if form.about.help_text %}
+                                <p class="text-sm text-gray-500 mt-1">{{ form.about.help_text }}</p>
+                            {% endif %}
+                            {% if form.about.errors %}
+                                <div class="text-red-600 text-sm mt-1">
+                                    {{ form.about.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Services Section -->
+                        <div class="md:col-span-2">
+                            <label for="{{ form.services.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                                <i class="fas fa-concierge-bell mr-2 text-blue-500"></i>
+                                Services Offered
+                            </label>
+                            <textarea 
+                                name="{{ form.services.name }}" 
+                                id="{{ form.services.id_for_label }}" 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input focus:ring-2 focus:ring-blue-500 focus:border-transparent h-32 resize-vertical"
+                                placeholder="List your services, one per line. Example:&#10;Haircut and Styling&#10;Beard Trimming&#10;Hot Towel Shave"
+                            >{{ form.services.value|default:'' }}</textarea>
+                            {% if form.services.help_text %}
+                                <p class="text-sm text-gray-500 mt-1">{{ form.services.help_text }}</p>
+                            {% endif %}
+                            {% if form.services.errors %}
+                                <div class="text-red-600 text-sm mt-1">
+                                    {{ form.services.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Contact Information -->
+                        <div>
+                            <label for="{{ form.contact_email.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                                <i class="fas fa-envelope mr-2 text-blue-500"></i>
+                                Contact Email
+                            </label>
+                            <input 
+                                type="email" 
+                                name="{{ form.contact_email.name }}" 
+                                id="{{ form.contact_email.id_for_label }}" 
+                                value="{{ form.contact_email.value|default:'' }}"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                placeholder="yourbusiness@email.com"
+                            >
+                            {% if form.contact_email.errors %}
+                                <div class="text-red-600 text-sm mt-1">
+                                    {{ form.contact_email.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div>
+                            <label for="{{ form.contact_phone.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                                <i class="fas fa-phone mr-2 text-blue-500"></i>
+                                Contact Phone
+                            </label>
+                            <input 
+                                type="text" 
+                                name="{{ form.contact_phone.name }}" 
+                                id="{{ form.contact_phone.id_for_label }}" 
+                                value="{{ form.contact_phone.value|default:'' }}"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                placeholder="+1 (555) 123-4567"
+                            >
+                            {% if form.contact_phone.errors %}
+                                <div class="text-red-600 text-sm mt-1">
+                                    {{ form.contact_phone.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Address -->
+                        <div class="md:col-span-2">
+                            <label for="{{ form.address.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                                <i class="fas fa-map-marker-alt mr-2 text-blue-500"></i>
+                                Business Address
+                            </label>
+                            <input 
+                                type="text" 
+                                name="{{ form.address.name }}" 
+                                id="{{ form.address.id_for_label }}" 
+                                value="{{ form.address.value|default:'' }}"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                placeholder="123 Business Street, City, State 12345"
+                            >
+                            {% if form.address.errors %}
+                                <div class="text-red-600 text-sm mt-1">
+                                    {{ form.address.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center">
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-12 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
+                        <i class="fas fa-save mr-2"></i>
+                        Save & Preview Website
+                    </button>
+                </div>
+                
+                {% if messages %}
+                    <div class="messages mt-6">
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} p-4 rounded-lg {% if message.tags == 'success' %}bg-green-100 text-green-700 border border-green-200{% else %}bg-red-100 text-red-700 border border-red-200{% endif %}">
+                                <div class="flex items-center">
+                                    <i class="fas {% if message.tags == 'success' %}fa-check-circle{% else %}fa-exclamation-circle{% endif %} mr-2"></i>
+                                    {{ message }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </form>
+        </div>
     </div>
-    {% endif %}
-</form>
+
+    <script>
+        // Color selection functionality
+        document.querySelectorAll('.color-option input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Update custom color picker and text input
+                document.querySelector('input[name="theme_color_custom"]').value = this.value;
+                document.getElementById('custom-color-value').value = this.value;
+                
+                // Visual feedback for selected color
+                document.querySelectorAll('.color-option').forEach(option => {
+                    option.querySelector('div').classList.remove('border-blue-500', 'border-3');
+                });
+                this.closest('.color-option').querySelector('div').classList.add('border-blue-500', 'border-3');
+            });
+        });
+
+        // Custom color picker updates
+        const customColorPicker = document.querySelector('input[name="theme_color_custom"]');
+        const customColorValue = document.getElementById('custom-color-value');
+
+        customColorPicker.addEventListener('input', function() {
+            customColorValue.value = this.value;
+            // Uncheck all radio buttons when using custom color
+            document.querySelectorAll('.color-option input[type="radio"]').forEach(radio => {
+                radio.checked = false;
+            });
+        });
+
+        customColorValue.addEventListener('input', function() {
+            if (this.value.match(/^#[0-9A-Fa-f]{6}$/)) {
+                customColorPicker.value = this.value;
+                // Uncheck all radio buttons when using custom color
+                document.querySelectorAll('.color-option input[type="radio"]').forEach(radio => {
+                    radio.checked = false;
+                });
+            }
+        });
+
+        // Initialize selected color
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentColor = '{{ website.theme_color }}';
+            if (currentColor) {
+                document.querySelectorAll('.color-option input[type="radio"]').forEach(radio => {
+                    if (radio.value === currentColor) {
+                        radio.checked = true;
+                        radio.dispatchEvent(new Event('change'));
+                    }
+                });
+            }
+        });
+
+        // Form validation
+        document.querySelector('form').addEventListener('submit', function(e) {
+            let valid = true;
+            const requiredFields = this.querySelectorAll('[required]');
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    valid = false;
+                    field.classList.add('border-red-500');
+                } else {
+                    field.classList.remove('border-red-500');
+                }
+            });
+            
+            if (!valid) {
+                e.preventDefault();
+                alert('Please fill in all required fields.');
+            }
+        });
+    </script>
+</body>
+</html>

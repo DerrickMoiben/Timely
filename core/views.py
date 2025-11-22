@@ -104,7 +104,7 @@ def businesswebsite(request, business_id):
             website.business = business
             website.save()
             messages.success(request, "You're website is up and running ")
-            return redirect('home')
+            return redirect('site', business_id=business.id)
         else:
             messages.error(request, "There was an error while trying to deploy you website")
     else:
